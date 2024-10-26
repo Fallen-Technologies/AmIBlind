@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My First Web Page</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: black;
+            color: rgb(255, 255, 255);
+        }
+
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <h1></h1>
+</body>
+<script>
+    const bgl_cookie = "blindness-gaslighter";
+    const bgl_decrement_count = 10;
+    let bgl_value = localStorage.getItem(bgl_cookie);
+    if (bgl_value == null) {
+        localStorage.setItem(bgl_cookie, 100);
+        bgl_value = 100;
+    } else {
+        if (bgl_value >= 0) {
+            bgl_value = bgl_value < bgl_decrement_count ? 0 : bgl_value - bgl_decrement_count;
+            localStorage.setItem(bgl_cookie, bgl_value);
+            document.querySelector("h1").style.color = `rgb(${bgl_value}%, ${bgl_value}%, ${bgl_value}%)`;
+        }
+    }
+    const bgl_text = bgl_value == 0 ? "yes" : "no";
+    document.querySelector("h1").innerText = bgl_text;
+</script>
+
+</html>
