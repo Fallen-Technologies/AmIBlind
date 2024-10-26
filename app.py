@@ -71,6 +71,6 @@ if __name__ == "__main__":
         port=25463,
         log_level="debug",
         reload=True,
-        ssl_keyfile="config/keyfile.key",
-        ssl_certfile="config/certfile.crt",
+        # ssl_keyfile="config/keyfile.key",
+        # ssl_certfile="config/certfile.crt",
         )

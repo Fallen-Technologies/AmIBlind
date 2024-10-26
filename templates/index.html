@@ -25,20 +25,30 @@
 </body>
 <script>
     const bgl_cookie = "blindness-gaslighter";
-    const bgl_decrement_count = 10;
-    let bgl_value = localStorage.getItem(bgl_cookie);
-    if (bgl_value == null) {
-        localStorage.setItem(bgl_cookie, 100);
+    const bgl_decrement_count = 5;
+    const one_week_ms = 7 * 24 * 60 * 60 * 1000;
+    
+    let bgl_data = JSON.parse(localStorage.getItem(bgl_cookie));
+    let bgl_value;
+    
+    if (!bgl_data || new Date().getTime() > bgl_data.expiration) {
+        // Set the initial value and expiration time of 1 week from now
         bgl_value = 100;
+        const expiration = new Date().getTime() + one_week_ms;
+        localStorage.setItem(bgl_cookie, JSON.stringify({ value: bgl_value, expiration }));
     } else {
+        bgl_value = bgl_data.value;
         if (bgl_value >= 0) {
             bgl_value = bgl_value < bgl_decrement_count ? 0 : bgl_value - bgl_decrement_count;
-            localStorage.setItem(bgl_cookie, bgl_value);
+            const expiration = bgl_data.expiration;
+            localStorage.setItem(bgl_cookie, JSON.stringify({ value: bgl_value, expiration }));
             document.querySelector("h1").style.color = `rgb(${bgl_value}%, ${bgl_value}%, ${bgl_value}%)`;
         }
     }
-    const bgl_text = bgl_value == 0 ? "yes" : "no";
+    
+    const bgl_text = bgl_value === 0 ? "yes" : "no";
     document.querySelector("h1").innerText = bgl_text;
 </script>
+
 
 </html>
