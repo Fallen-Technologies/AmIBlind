@@ -40,6 +40,15 @@ def read_favicon():
     return FileResponse("static/images/favicon.ico")
 
 
+# Health
+@app.get("/api/v1/health",
+         summary="Health Check",
+         description="This endpoint is used to check the health of the server",
+         tags=["Public"])
+def health():
+    return {"message": "ok"}
+
+
 # Home Page
 @app.get("/",
          summary="Home Page?",
